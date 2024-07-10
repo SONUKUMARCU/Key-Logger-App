@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       .btn-div{
+        display: flex;
+        justify-items: center;
+        gap: 10px;
+        >button{
+            padding : 6px;
+        }
+       } 
+       .display-area{
+        display: flex;
+        margin-top: 6px;
+        justify-items: center;
+        gap: 10px;
+        >div{
+            width: 180px;
+            height: 40px;
+            text-align: center;
+        }
+        >.first{
+            background-color: orange;
+        }
+        >.second{
+            background-color: rgb(81, 77, 77);
+        }
+       }
+    </style>
+</head>
+<body>
+    <h1>keylogger</h1>
+    <div class="btn-div">
+        <button class="start-btn">Start Logging Keypress</button>
+        <button class="stop-btn">Stop Logging Keypresses</button>
+    </div>
+    <div class="display-area">
+        <div class="first"></div>
+        <div class="second"></div>
+    </div>
+    <script>
+        const firstBox = document.querySelector(".first");
+        const secondBox = document.querySelector(".second");
+        const startButton = document.querySelector('.start-btn');
+        const stopButton = document.querySelector(".stop-btn");
+
+        startButton.addEventListener('click',()=>{
+            document.addEventListener("keydown",handleDown);
+            document.addEventListener("keyup",handleUp);
+        })
+        stopButton.addEventListener('click',()=>{
+            document.removeEventListener("keydown",handleDown);
+            document.removeEventListener("keyup",handleUp);
+            firstBox.textContent = "";
+            secondBox.textContent = "";
+        })
+
+        function handleDown(e){
+            firstBox.textContent = `key ${e.key} pressed`;
+            secondBox.textContent = `key is down`;
+        }
+        function handleUp(e){
+            firstBox.textContent = `key ${e.key} is released`;
+            secondBox.textContent = `key is up`;
+        }
+    </script>
+</body>
+</html>
